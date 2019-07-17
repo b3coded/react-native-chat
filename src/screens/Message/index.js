@@ -4,10 +4,16 @@ import Styles from "../../styles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default class Message extends Component {
+  state = {
+    msg: ""
+  };
+
   static navigationOptions = {
     headerTitle: "Contact Name"
   };
+
   render() {
+    const { msg } = this.state;
     return (
       <View style={Styles.appContainer}>
         <View style={Styles.messageContainer} />
@@ -16,6 +22,8 @@ export default class Message extends Component {
             <TextInput
               style={[Styles.input, Styles.roundedSm]}
               placeholder="Message here"
+              value={msg}
+              onChangeText={msg => this.setState({ msg })}
             />
           </View>
           <TouchableOpacity style={Styles.roundedButton}>

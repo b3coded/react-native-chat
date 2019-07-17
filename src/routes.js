@@ -2,13 +2,15 @@ import React from "react";
 import {
   createAppContainer,
   createSwitchNavigator,
+  createBottomTabNavigator,
   createStackNavigator
 } from "react-navigation";
+
+import Icon from "react-native-vector-icons/FontAwesome5";
+
 // importing Views
 import Login from "./screens/Login";
-import Home from "./screens/Home";
-import CustomHeader from "./components/Header";
-import Message from "./screens/Message";
+import Drawer from "./components/Drawer";
 
 // Routing
 const _auth = createStackNavigator({
@@ -20,52 +22,12 @@ const _auth = createStackNavigator({
     }
   }
 });
-const _authContainer = createAppContainer(_auth);
 
-const _main = createStackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      header: props => <CustomHeader {...props} />,
-      headerStyle: {
-        backgroundColor: "transparent"
-      },
-      headerTitleStyle: {
-        fontWeight: "bold",
-        color: "#fff",
-        zIndex: 1,
-        fontSize: 22,
-        lineHeight: 23
-      },
-      headerTintColor: "#fff",
-      animationEnabled: true,
-      headerTitle: "Home"
-    }
-  },
-  Message: {
-    screen: Message,
-    navigationOptions: {
-      header: props => <CustomHeader {...props} />,
-      headerStyle: {
-        backgroundColor: "transparent"
-      },
-      headerTitleStyle: {
-        fontWeight: "bold",
-        color: "#fff",
-        zIndex: 1,
-        fontSize: 22,
-        lineHeight: 23
-      },
-      headerTintColor: "#fff",
-      animationEnabled: true
-    }
-  }
-});
-const _mainContainer = createAppContainer(_main);
+const _authContainer = createAppContainer(_auth);
 
 const _routes = createSwitchNavigator({
   Login: _authContainer,
-  Main: _mainContainer
+  Main: Drawer
 });
 
 const Routes = createAppContainer(_routes);

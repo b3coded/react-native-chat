@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { FlatList, ActivityIndicator } from "react-native";
+import {
+  FlatList,
+  ActivityIndicator,
+  View,
+  Text,
+  InteractionManager
+} from "react-native";
 import Styles from "../../styles";
 import moment from "moment";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -20,6 +26,7 @@ import {
   TextButton
 } from "./styles";
 import api from "../../services/api";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class Home extends Component {
   constructor(props) {
@@ -32,16 +39,18 @@ export default class Home extends Component {
 
     moment.locale("pt-br");
   }
-
+  /*
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.contacts !== nextState.contacts;
   }
-
+*/
   componentDidMount() {
-    this.setState({
-      loading: true
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        loading: true
+      });
+      this.getContacts();
     });
-    this.getContacts();
   }
 
   getContacts = async () => {
@@ -59,7 +68,6 @@ export default class Home extends Component {
 
   render() {
     const { contacts, loading } = this.state;
-    console.log(this.state);
     return (
       <AppContainer>
         <FlatList
